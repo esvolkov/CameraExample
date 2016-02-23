@@ -2,38 +2,37 @@ package com.example.esvolkov.camera;
 
 import android.content.Context;
 import android.hardware.Camera;
+import android.support.annotation.NonNull;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-
-import java.io.IOException;
 
 /**
  * Created by esvolkov on 18.02.2016.
  */
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder mHolder;
-    private Camera camera;
-    private SurfaceDestoryCallback destroyCallback;
+    @NonNull private Camera camera;
+    private SurfaceDestroyCallback destroyCallback;
 
-    public CameraPreview(Context context, Camera camera, SurfaceDestoryCallback callback) {
+    public CameraPreview(Context context, @NonNull Camera camera, SurfaceDestroyCallback callback) {
         super(context);
         this.camera = camera;
         this.destroyCallback = callback;
 
         mHolder = getHolder();
-        mHolder.addCallback( this );
+        mHolder.addCallback(this);
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-            try {
-                camera.setPreviewDisplay(holder);
-                camera.startPreview();
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new RuntimeException( e );
-                // TODO
-            }
+        try {
+            camera.setPreviewDisplay(holder);
+            camera.startPreview();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+            // TODO
+        }
 
     }
 
